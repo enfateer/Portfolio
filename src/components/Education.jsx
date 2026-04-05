@@ -9,7 +9,7 @@ const Education = () => {
   const data = [
     {
       id: 1,
-      title: "Sekolah Dasar Ciadeg 06",
+      title: "Sekolah Dasar Negeri Ciadeg 06",
       period: "2015 - 2021",
       badgeColor: "indigo",
       icon: "fas fa-school",
@@ -17,7 +17,7 @@ const Education = () => {
     },
     {
       id: 2,
-      title: "Sekolah Menengah Pertama Islam Terpatu Alfatih ",
+      title: "Sekolah Menengah Pertama Islam Terpadu Alfatih ",
       period: "2021 - 2024",
       badgeColor: "emerald",
       icon: "fas fa-chalkboard-user",
@@ -25,8 +25,8 @@ const Education = () => {
     },
     {
       id: 3,
-      title: "Sekolah Menengah Kejuruan Wikrama",
-      period: "2021 - Now",
+      title: "Sekolah Menengah Kejuruan Swasta Wikrama",
+      period: "2024 - Now",
       badgeColor: "sky",
       icon: "fas fa-laptop-code",
       description: "PPLG | RPL",

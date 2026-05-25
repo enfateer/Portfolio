@@ -270,20 +270,17 @@ const Hero = () => {
               <i className="fas fa-arrow-right text-xs"></i>
             </a>
             <a
-              href="#profile"
-              className="px-7 py-3 rounded-full font-medium text-sm transition-all flex items-center justify-center border hover:bg-neutral-800/5 dark:hover:bg-white/5"
+              href="/MFathirRahman.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-7 py-3 rounded-full font-medium text-sm transition-all flex items-center justify-center gap-2 border hover:bg-neutral-800/5 dark:hover:bg-white/5"
               style={{
                 border: "1px solid var(--border)",
                 color: "var(--text-heading)",
               }}
-              onClick={(e) => {
-                e.preventDefault();
-                document
-                  .querySelector("#profile")
-                  .scrollIntoView({ behavior: "smooth" });
-              }}
             >
-              <span>Tentang Saya</span>
+              <i className="fas fa-file-alt text-xs"></i>
+              <span>My CV</span>
             </a>
           </div>
         </div>

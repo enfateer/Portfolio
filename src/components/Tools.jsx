@@ -14,38 +14,66 @@ const Tools = () => {
     { name: "Node.js", icon: "fab fa-node" },
     { name: "Java", icon: "fab fa-java" },
     { name: "MongoDB", icon: "fas fa-database" },
+    { name: "ChatGPT", icon: "fas fa-robot" },
+    { name: "Gemini", icon: "fas fa-star" },
   ];
 
   return (
-    <section id="tools" className="py-16 px-5 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 section-title">
-            Tools
+    <section
+      id="tools"
+      className="py-20 px-6 section-secondary overflow-hidden"
+    >
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-heading section-title">
+            Skills &{" "}
+            <span
+              className="font-extrabold uppercase"
+              style={{ color: "var(--accent)" }}
+            >
+              Tools
+            </span>
           </h2>
-          <p className="mt-4 text-gray-500 text-sm">
-            Tools yang pernah saya gunakan dan dipelajari
+          <p className="mt-4 text-sm font-medium tracking-wide text-muted">
+            Tools dan teknologi yang pernah saya pelajari dan gunakan dalam
+            proyek
           </p>
         </div>
-        <div className="marquee-wrapper">
+        <div className="marquee-wrapper mt-8">
           <div className="marquee-track">
             {tools.map((tool, idx) => (
               <div
                 key={`set1-${idx}`}
-                className="tool-card inline-flex items-center gap-2 px-4 py-2 mx-2 bg-gray-100 rounded-lg shadow-md"
+                className="tool-card inline-flex items-center gap-3 px-5 py-3 mx-3 rounded-xl"
               >
-                <i className={`${tool.icon} text-xl text-[#2c3e66]`}></i>
-                <span className="font-semibold text-sm">{tool.name}</span>
+                <i
+                  className={`${tool.icon} text-2xl`}
+                  style={{ color: "var(--text-heading)" }}
+                ></i>
+                <span
+                  className="font-semibold text-sm tracking-tight"
+                  style={{ color: "var(--text-heading)" }}
+                >
+                  {tool.name}
+                </span>
               </div>
             ))}
 
             {tools.map((tool, idx) => (
               <div
                 key={`set2-${idx}`}
-                className="tool-card inline-flex items-center gap-2 px-4 py-2 mx-2 bg-gray-100 rounded-lg shadow-md"
+                className="tool-card inline-flex items-center gap-3 px-5 py-3 mx-3 rounded-xl"
               >
-                <i className={`${tool.icon} text-xl text-[#2c3e66]`}></i>
-                <span className="font-semibold text-sm">{tool.name}</span>
+                <i
+                  className={`${tool.icon} text-2xl`}
+                  style={{ color: "var(--text-heading)" }}
+                ></i>
+                <span
+                  className="font-semibold text-sm tracking-tight"
+                  style={{ color: "var(--text-heading)" }}
+                >
+                  {tool.name}
+                </span>
               </div>
             ))}
           </div>

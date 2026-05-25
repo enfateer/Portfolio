@@ -1,19 +1,47 @@
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-[#111827] to-[#1e2a47] text-white py-8 relative z-10">
-      <div className="max-w-6xl mx-auto px-5 text-center">
-        <p className="text-gray-300">
-          &copy; 2026 Made By enfateer 13 | Tech Enthusiast
+    <footer 
+      className="py-10 relative z-10 border-t" 
+      style={{ 
+        backgroundColor: "var(--bg-page)", 
+        borderColor: "var(--border)",
+        color: "var(--text-muted)"
+      }}
+    >
+      <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+        <p className="text-xs sm:text-sm tracking-wide">
+          &copy; {new Date().getFullYear()} enfateer 13. All Rights Reserved. Built with React.
         </p>
-        <div className="flex justify-center gap-6 mt-4 text-gray-400 text-xl">
-          <a href="https://github.com/enfateer" target="_blank">
-            <i className="fab fa-github hover:text-white transition cursor-pointer hover:scale-110"></i>
+        <div className="flex items-center gap-4 text-lg">
+          <a 
+            href="https://github.com/enfateer" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="w-9 h-9 rounded-xl flex items-center justify-center border hover:text-heading hover:bg-neutral-800/10 dark:hover:bg-white/5 transition-all duration-300"
+            style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
+            title="GitHub"
+          >
+            <i className="fab fa-github"></i>
           </a>
-          <a href="https://www.linkedin.com/in/enfateer1113/" target="_blank">
-            <i className="fab fa-linkedin hover:text-white transition cursor-pointer hover:scale-110"></i>
+          <a 
+            href="https://www.linkedin.com/in/enfateer1113/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="w-9 h-9 rounded-xl flex items-center justify-center border hover:text-heading hover:bg-neutral-800/10 dark:hover:bg-white/5 transition-all duration-300"
+            style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
+            title="LinkedIn"
+          >
+            <i className="fab fa-linkedin-in"></i>
           </a>
-          <a href="https://www.instagram.com/fathirrahmaann/" target="_blank">
-            <i className="fab fa-instagram hover:text-white transition cursor-pointer hover:scale-110"></i>
+          <a 
+            href="https://www.instagram.com/fathirrahmaann/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="w-9 h-9 rounded-xl flex items-center justify-center border hover:text-heading hover:bg-neutral-800/10 dark:hover:bg-white/5 transition-all duration-300"
+            style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
+            title="Instagram"
+          >
+            <i className="fab fa-instagram"></i>
           </a>
         </div>
       </div>

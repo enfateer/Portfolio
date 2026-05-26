@@ -61,7 +61,6 @@ const Navbar = ({ isDark, toggleTheme }) => {
           className="text-xl sm:text-2xl font-bold tracking-tight"
         >
           <span style={{ color: "var(--accent)" }}>enfateer</span>
-          <span style={{ color: "var(--text-muted)" }}> 13</span>
         </a>
 
         <div className="hidden md:flex items-center gap-6">

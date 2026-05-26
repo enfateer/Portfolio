@@ -10,7 +10,7 @@ const Footer = () => {
     >
       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
         <p className="text-xs sm:text-sm tracking-wide">
-          &copy; {new Date().getFullYear()} enfateer 13. All Rights Reserved. Built with React.
+          &copy; {new Date().getFullYear()} enfateer. All Rights Reserved.
         </p>
         <div className="flex items-center gap-4 text-lg">
           <a 

@@ -1,7 +1,9 @@
 import { useInView } from "react-intersection-observer";
 import picture from "../assets/images/fathir.jpeg";
 
+
 const Profile = () => {
+
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true,
@@ -92,14 +94,19 @@ const Profile = () => {
           </div>
           <div className="flex-1 flex justify-center">
             <div
-              className="w-64 h-64 sm:w-72 sm:h-72 rounded-2xl overflow-hidden shadow-xl border p-2 bg-neutral-900/10 dark:bg-white/5 transition-all duration-500 transform hover:rotate-0 rotate-2 hover:scale-[1.02]"
-              style={{ borderColor: "var(--border)" }}
+              className="profile-photo-wrapper"
             >
-              <img
-                src={picture}
-                alt="Fathir Portrait"
-                className="w-full h-full object-cover rounded-xl grayscale hover:grayscale-0 transition-all duration-500"
-              />
+              <div
+                className="w-64 h-64 sm:w-72 sm:h-72 rounded-2xl overflow-hidden shadow-xl border p-2 bg-neutral-900/10 dark:bg-white/5 transition-all duration-500 transform hover:rotate-0 rotate-2 hover:scale-[1.02]"
+                style={{ borderColor: "var(--border)" }}
+              >
+                <img
+                  src={picture}
+                  alt="Fathir Portrait"
+                  className="w-full h-full object-cover rounded-xl grayscale hover:grayscale-0 transition-all duration-500"
+                />
+              </div>
+
             </div>
           </div>
         </div>

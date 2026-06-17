@@ -14,8 +14,8 @@ const Tools = () => {
     { name: "Node.js", icon: "fab fa-node" },
     { name: "Java", icon: "fab fa-java" },
     { name: "MongoDB", icon: "fas fa-database" },
-    { name: "ChatGPT", icon: "fas fa-robot" },
-    { name: "Gemini", icon: "fas fa-star" },
+    { name: "Sequilize", icon: "fas fa-code-branch" },
+   
   ];
 
   return (

@@ -12,7 +12,7 @@ import Footer from "./components/Footer";
 function App() {
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem("theme");
-    return saved ? saved === "dark" : true;
+    return saved ? saved === "dark" : true; // Default to true (Dark)
   });
 
   useEffect(() => {
@@ -27,10 +27,10 @@ function App() {
   const toggleTheme = () => setIsDark((prev) => !prev);
 
   return (
-    <div className="antialiased overflow-x-hidden">
+    <div className="bg-page min-h-screen text-body selection:bg-cyan-500/30 selection:text-cyan-200">
       <Particles />
       <Navbar isDark={isDark} toggleTheme={toggleTheme} />
-      <main className="relative z-10">
+      <main className="relative">
         <Hero />
         <Profile />
         <Education />

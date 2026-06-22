@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 const VSCodeSnippet = () => {
@@ -33,7 +34,7 @@ const VSCodeSnippet = () => {
       content: [
         { text: "  job", cls: "vsc-property" },
         { text: ": ", cls: "vsc-bracket" },
-        { text: '"Junior Full Stack Developer"', cls: "vsc-string" },
+        { text: '"Full Stack Developer"', cls: "vsc-string" },
         { text: ",", cls: "vsc-bracket" },
       ],
     },
@@ -69,8 +70,13 @@ const VSCodeSnippet = () => {
   ];
 
   return (
-    <div className="vsc-editor">
-      <div className="vsc-titlebar">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="vsc-editor glass-card border-white/5"
+    >
+      <div className="vsc-titlebar bg-slate-900/50">
         <div className="vsc-dots">
           <span className="vsc-dot vsc-dot-red"></span>
           <span className="vsc-dot vsc-dot-yellow"></span>
@@ -80,8 +86,8 @@ const VSCodeSnippet = () => {
         <div style={{ width: 52 }}></div>
       </div>
 
-      <div className="vsc-tabbar">
-        <div className="vsc-tab vsc-tab-active">
+      <div className="vsc-tabbar bg-slate-900/30">
+        <div className="vsc-tab vsc-tab-active bg-slate-800/40">
           <svg
             width="14"
             height="14"
@@ -93,31 +99,32 @@ const VSCodeSnippet = () => {
               fill="#519aba"
             />
           </svg>
-          <span>developer.js</span>
-          <span className="vsc-tab-close">×</span>
+          <span className="text-xs">developer.js</span>
+          <span className="vsc-tab-close opacity-0 hover:opacity-100 transition-opacity">
+            ×
+          </span>
         </div>
       </div>
 
-      <div className="vsc-code-area">
+      <div className="vsc-code-area bg-[#0d1117]/80">
         <div className="vsc-minimap">
-          <div className="vsc-minimap-line" style={{ width: "30%" }}></div>
-          <div className="vsc-minimap-line" style={{ width: "65%" }}></div>
-          <div className="vsc-minimap-line" style={{ width: "80%" }}></div>
-          <div className="vsc-minimap-line" style={{ width: "70%" }}></div>
-          <div className="vsc-minimap-line" style={{ width: "75%" }}></div>
-          <div className="vsc-minimap-line" style={{ width: "25%" }}></div>
-          <div className="vsc-minimap-line" style={{ width: "55%" }}></div>
-          <div className="vsc-minimap-line" style={{ width: "40%" }}></div>
+          {[30, 65, 80, 70, 75, 25, 55, 40].map((width, idx) => (
+            <div
+              key={idx}
+              className="vsc-minimap-line"
+              style={{ width: `${width}%` }}
+            ></div>
+          ))}
         </div>
 
-        <div className="vsc-lines">
+        <div className="vsc-lines py-4">
           {lines.map((line, i) => (
             <div
               key={i}
-              className={`vsc-line ${line.num === 5 ? "vsc-line-active" : ""}`}
+              className={`vsc-line ${line.num === 5 ? "bg-white/5" : ""}`}
             >
-              <span className="vsc-line-num">{line.num}</span>
-              <span className="vsc-line-content">
+              <span className="vsc-line-num text-slate-600">{line.num}</span>
+              <span className="vsc-line-content font-mono text-[12.5px]">
                 {line.content
                   ? line.content.map((token, j) => (
                       <span key={j} className={token.cls}>
@@ -128,6 +135,7 @@ const VSCodeSnippet = () => {
                 {line.num === 5 && (
                   <span
                     className={`vsc-cursor ${showCursor ? "" : "vsc-cursor-hidden"}`}
+                    style={{ background: "var(--accent-cyan)" }}
                   ></span>
                 )}
               </span>
@@ -135,29 +143,7 @@ const VSCodeSnippet = () => {
           ))}
         </div>
       </div>
-
-      <div className="vsc-statusbar">
-        <div className="vsc-statusbar-left">
-          <span className="vsc-statusbar-branch">
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              style={{ marginRight: 4 }}
-            >
-              <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zM13 4.5H9.5V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z" />
-            </svg>
-            main
-          </span>
-        </div>
-        <div className="vsc-statusbar-right">
-          <span>Ln 5, Col 42</span>
-          <span>UTF-8</span>
-          <span>JavaScript</span>
-        </div>
-      </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -167,127 +153,96 @@ const Hero = () => {
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const roles = [
-    "Web Developer",
-    "Back End Developer",
-    "Problem Solver",
-    "Tech Explorer",
-  ];
-
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true,
   });
 
-  useEffect(() => {
-    const fullText = roles[roleIndex];
-
-    const timer = setTimeout(
-      () => {
-        if (isDeleting) {
-          setDisplayText(fullText.substring(0, charIndex - 1));
-          setCharIndex(charIndex - 1);
-        } else {
-          setDisplayText(fullText.substring(0, charIndex + 1));
-          setCharIndex(charIndex + 1);
-        }
-
-        if (!isDeleting && charIndex === fullText.length) {
-          setIsDeleting(true);
-        } else if (isDeleting && charIndex === 0) {
-          setIsDeleting(false);
-          setRoleIndex((roleIndex + 1) % roles.length);
-        }
-      },
-      isDeleting ? 40 : 80,
-    );
-
-    return () => clearTimeout(timer);
-  }, [charIndex, isDeleting, roleIndex]);
-
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center px-6 py-24 relative overflow-hidden section-primary"
+      className="min-h-screen flex items-center justify-center px-6 py-24 relative overflow-hidden bg-page"
     >
-      <div className="max-w-5xl mx-auto flex flex-col-reverse md:flex-row items-center gap-12 md:gap-20 relative z-10 w-full">
-        <div
-          className={`flex-1 text-center md:text-left ${
-            inView ? "reveal active" : "reveal"
-          }`}
+      <div className="absolute top-0 left-0 w-full h-full bg-aurora -z-10" />
+
+      <div className="absolute top-1/4 -left-20 w-[400px] h-[400px] bg-cyan-500/20 blur-[120px] rounded-full animate-pulse" />
+      <div className="absolute bottom-1/4 -right-20 w-[350px] h-[350px] bg-violet-600/20 blur-[120px] rounded-full animate-pulse" />
+
+      <div className="max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20 relative z-10 w-full">
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="flex-1 text-center lg:text-left"
           ref={ref}
         >
-          <h1
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.15] tracking-tight"
-            style={{ color: "var(--text-heading)" }}
-          >
-            Hai, I am <br className="hidden md:inline" />
-            <span
-              style={{ color: "var(--text-heading)" }}
-              className="font-extrabold"
-            >
-              Fathir Rahman
+          <div className="flex items-center justify-center lg:justify-start mb-6 relative group">
+            <span className="text-[10px] sm:text-xs font-bold tracking-[0.3em] text-muted uppercase">
+              Fathir Rahman • Full Stack Developer
             </span>
-          </h1>
-
-          <div className="mt-4 text-lg sm:text-xl flex flex-wrap items-center justify-center md:justify-start gap-1.5 h-8">
-            <span className="text-muted text-sm sm:text-base font-medium">
-              Fokus pada
-            </span>
-            <span
-              className="font-semibold text-sm sm:text-base underline underline-offset-4 decoration-1"
-              style={{ color: "var(--text-heading)" }}
-            >
-              {displayText}
-            </span>
-            <span className="cursor-blink"></span>
           </div>
 
-          <p
-            className="mt-6 max-w-md mx-auto md:mx-0 leading-relaxed text-sm sm:text-base"
-            style={{ color: "var(--text-body)" }}
-          >
-            Membangun aplikasi web dan mobile dengan kode yang bersih,
-            terstruktur, serta mengutamakan kenyamanan pengguna.
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tighter text-heading leading-[1.1] mb-6">
+            Fathir <span className="text-gradient">Rahman.</span>
+          </h1>
+
+          <p className="mt-8 max-w-xl mx-auto lg:mx-0 leading-relaxed text-body text-lg">
+            A passionate Full Stack Developer dedicated to crafting clean,
+            efficient, and scalable solutions using modern technologies.
           </p>
 
-          <div className="mt-8 flex flex-col sm:flex-row gap-3.5 justify-center md:justify-start">
-            <a
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <motion.a
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               href="#projects"
-              className="btn-hover px-7 py-3 rounded-full font-medium shadow-sm transition-all relative overflow-hidden flex items-center justify-center gap-2 text-sm"
+              className="px-8 py-4 rounded-2xl font-bold shadow-lg transition-all flex items-center justify-center gap-3 text-sm tracking-wide"
               style={{
-                background: "var(--accent)",
+                background:
+                  "linear-gradient(135deg, var(--accent-cyan), var(--accent-violet))",
                 color: "var(--text-inverse)",
               }}
               onClick={(e) => {
                 e.preventDefault();
-                document
-                  .querySelector("#projects")
-                  .scrollIntoView({ behavior: "smooth" });
+                const target = document.querySelector("#projects");
+                if (target) {
+                  const offset = 80;
+                  const elementPosition = target.getBoundingClientRect().top;
+                  const offsetPosition =
+                    elementPosition + window.pageYOffset - offset;
+                  window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                }
               }}
             >
-              <span>Lihat Proyek</span>
-              <i className="fas fa-arrow-right text-xs"></i>
-            </a>
-            <a
+              <span>Explore Projects</span>
+              <i className="fas fa-chevron-right text-[10px]"></i>
+            </motion.a>
+
+            <motion.a
+              whileHover={{
+                scale: 1.05,
+                background: "rgba(255, 255, 255, 0.05)",
+              }}
+              whileTap={{ scale: 0.95 }}
               href="/MFathirRahman.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-7 py-3 rounded-full font-medium text-sm transition-all flex items-center justify-center gap-2 border hover:bg-neutral-800/5 dark:hover:bg-white/5"
-              style={{
-                border: "1px solid var(--border)",
-                color: "var(--text-heading)",
-              }}
+              className="px-8 py-4 rounded-2xl font-bold text-sm transition-all flex items-center justify-center gap-3 glass-card border-white/10 text-heading tracking-wide"
             >
-              <i className="fas fa-file-alt text-xs"></i>
-              <span>My CV</span>
-            </a>
+              <i className="fas fa-file-pdf text-xs text-cyan-400"></i>
+              <span>Hire Me</span>
+            </motion.a>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="flex-1 flex justify-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8, rotateY: 20 }}
+          animate={inView ? { opacity: 1, scale: 1, rotateY: 0 } : {}}
+          transition={{ duration: 1, delay: 0.2 }}
+          className="flex-1 flex justify-center w-full lg:w-auto overflow-hidden lg:overflow-visible"
+        >
           <VSCodeSnippet />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

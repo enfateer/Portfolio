@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = ({ isDark, toggleTheme }) => {
   const [activeSection, setActiveSection] = useState("home");
@@ -18,7 +19,14 @@ const Navbar = ({ isDark, toggleTheme }) => {
     setMobileOpen(false);
     const targetElement = document.querySelector(href);
     if (targetElement) {
-      targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      const offset = 80;
+      const elementPosition = targetElement.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
       window.history.pushState(null, null, href);
     }
   };
@@ -29,7 +37,7 @@ const Navbar = ({ isDark, toggleTheme }) => {
       const sections = navItems.map((item) =>
         document.querySelector(item.href),
       );
-      const scrollPosition = window.scrollY + 100;
+      const scrollPosition = window.scrollY + 120;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
@@ -46,106 +54,137 @@ const Navbar = ({ isDark, toggleTheme }) => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 backdrop-blur-2xl transition-all duration-300 ${
-        scrolled ? "py-2" : "py-3"
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+        scrolled ? "py-3" : "py-5"
       }`}
-      style={{
-        background: "var(--bg-nav)",
-        borderBottom: "1px solid var(--border)",
-      }}
     >
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 flex justify-between items-center">
-        <a
-          href="#home"
-          onClick={(e) => handleClick(e, "#home")}
-          className="text-xl sm:text-2xl font-bold tracking-tight"
-        >
-          <span style={{ color: "var(--accent)" }}>enfateer</span>
-        </a>
-
-        <div className="hidden md:flex items-center gap-6">
-          <ul className="flex gap-6 text-sm font-medium">
-            {navItems.map((item) => (
-              <li key={item.name}>
-                <a
-                  href={item.href}
-                  onClick={(e) => handleClick(e, item.href)}
-                  className={`nav-link ${
-                    activeSection === item.href.substring(1) ? "active" : ""
-                  }`}
-                >
-                  {item.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          <button
-            onClick={toggleTheme}
-            className="theme-toggle"
-            aria-label="Toggle theme"
-            title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-          >
-            <i className={isDark ? "fas fa-sun" : "fas fa-moon"}></i>
-          </button>
-        </div>
-
-        <div className="flex md:hidden items-center gap-3">
-          <button
-            onClick={toggleTheme}
-            className="theme-toggle"
-            aria-label="Toggle theme"
-          >
-            <i className={isDark ? "fas fa-sun" : "fas fa-moon"}></i>
-          </button>
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="w-10 h-10 flex items-center justify-center rounded-xl transition-all"
-            style={{
-              background: "var(--bg-card)",
-              border: "1px solid var(--border)",
-              color: "var(--text-heading)",
-            }}
-          >
-            <i className={mobileOpen ? "fas fa-times" : "fas fa-bars"}></i>
-          </button>
-        </div>
-      </div>
-
-      {mobileOpen && (
+      <div className="max-w-6xl mx-auto px-6">
         <div
-          className="md:hidden mt-2 mx-5 rounded-xl p-4 backdrop-blur-xl"
+          className={`flex justify-between items-center px-6 py-3 rounded-2xl glass-card transition-all duration-500 ${
+            scrolled ? "mx-0 shadow-lg" : "mx-4"
+          }`}
           style={{
-            background: "var(--bg-card)",
-            border: "1px solid var(--border)",
+            background: scrolled
+              ? "var(--bg-nav)"
+              : "rgba(255, 255, 255, 0.03)",
           }}
         >
-          <ul className="flex flex-col gap-1">
-            {navItems.map((item) => (
-              <li key={item.name}>
-                <a
-                  href={item.href}
-                  onClick={(e) => handleClick(e, item.href)}
-                  className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all"
-                  style={{
-                    color:
-                      activeSection === item.href.substring(1)
-                        ? "var(--accent)"
-                        : "var(--text-body)",
-                    background:
-                      activeSection === item.href.substring(1)
-                        ? "var(--accent-subtle)"
-                        : "transparent",
-                  }}
+          <motion.a
+            href="#home"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            onClick={(e) => handleClick(e, "#home")}
+            className="text-2xl font-bold tracking-tighter"
+          >
+            <span className="text-gradient">enfateer</span>
+          </motion.a>
+
+          <div className="hidden md:flex items-center gap-8">
+            <ul className="flex gap-8 text-[13px] font-semibold uppercase tracking-widest">
+              {navItems.map((item, idx) => (
+                <motion.li
+                  key={item.name}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1 }}
                 >
-                  <i className={item.icon} style={{ width: "16px" }}></i>
-                  {item.name}
-                </a>
-              </li>
-            ))}
-          </ul>
+                  <a
+                    href={item.href}
+                    onClick={(e) => handleClick(e, item.href)}
+                    className={`relative nav-link transition-colors duration-300 ${
+                      activeSection === item.href.substring(1)
+                        ? "text-heading"
+                        : "text-muted"
+                    }`}
+                  >
+                    {item.name}
+                    {activeSection === item.href.substring(1) && (
+                      <motion.div
+                        layoutId="activeTab"
+                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-violet-500"
+                        transition={{
+                          type: "spring",
+                          stiffness: 380,
+                          damping: 30,
+                        }}
+                      />
+                    )}
+                  </a>
+                </motion.li>
+              ))}
+            </ul>
+
+            <div className="h-6 w-px bg-white/10 mx-2" />
+
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={toggleTheme}
+              className="w-10 h-10 rounded-xl flex items-center justify-center text-lg glass-card border-white/10"
+              aria-label="Toggle theme"
+            >
+              <i
+                className={
+                  isDark
+                    ? "fas fa-sun text-yellow-400 font-bold"
+                    : "fas fa-moon text-violet-400 font-bold"
+                }
+              ></i>
+            </motion.button>
+          </div>
+
+          <div className="flex md:hidden items-center gap-3">
+            <button
+              onClick={toggleTheme}
+              className="w-10 h-10 rounded-xl flex items-center justify-center glass-card"
+            >
+              <i
+                className={
+                  isDark
+                    ? "fas fa-sun text-yellow-400"
+                    : "fas fa-moon text-violet-400"
+                }
+              ></i>
+            </button>
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="w-10 h-10 flex items-center justify-center rounded-xl glass-card transition-all"
+            >
+              <i className={mobileOpen ? "fas fa-times" : "fas fa-bars"}></i>
+            </button>
+          </div>
         </div>
-      )}
+
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              className="md:hidden mt-3 rounded-2xl p-4 glass-card overflow-hidden"
+            >
+              <ul className="flex flex-col gap-2">
+                {navItems.map((item) => (
+                  <li key={item.name}>
+                    <a
+                      href={item.href}
+                      onClick={(e) => handleClick(e, item.href)}
+                      className={`flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
+                        activeSection === item.href.substring(1)
+                          ? "bg-white/10 text-cyan-400"
+                          : "text-body hover:bg-white/5"
+                      }`}
+                    >
+                      <i className={`${item.icon} w-5 text-center`}></i>
+                      {item.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </nav>
   );
 };
